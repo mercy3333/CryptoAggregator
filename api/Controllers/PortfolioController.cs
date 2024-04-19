@@ -1,10 +1,11 @@
 ﻿using api.Data;
+using api.Dtos.CryptoTransactions;
 using api.Dtos.Portfolio;
-using api.Extensions;
 using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace api.Controllers
 {
@@ -13,14 +14,11 @@ namespace api.Controllers
     public class PortfolioController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
 
 
-        public PortfolioController(ApplicationDbContext context,UserManager<User> userManager)
+        public PortfolioController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
-
         }
 
 
@@ -47,6 +45,21 @@ namespace api.Controllers
                 CryptoTransactions: portfolio.CryptoTransactions.ToList()));
         }
 
+        [HttpPost]
+        public IActionResult AddTransacrion([FromBody] AddCryptoTransactionDto cryptoTransaction)
+        {
+            //var sdasdas = JsonSerializer.Deserialize<CryptoTransaction>(Json);
 
+            //var portfolio = _context.Portfolios.Find(id);
+
+            //if (portfolio == null)
+            //{
+            //    return NotFound("There is no portfolio with provided id");
+            //}
+            //return Ok(new PortfolioDto(
+            //    CryptoTransactions: portfolio.CryptoTransactions.ToList()));
+
+            return Ok();
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -17,22 +17,5 @@ namespace api.Data
         public DbSet<CryptoCurrency> CryptoCurrencies { get; set; }
 
         public DbSet<CryptoTransaction> CryptoTransactions { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            List<IdentityRole> roles = new List<IdentityRole>() {
-            new IdentityRole()
-            {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            }, new IdentityRole()
-            {
-                Name = "User",
-                NormalizedName = "USER"
-            },
-            };
-            builder.Entity<IdentityRole>().HasData(roles);
-        }
     }
 }
