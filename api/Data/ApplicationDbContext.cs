@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace api.Data
 {
@@ -12,10 +13,7 @@ namespace api.Data
 
         }
 
-        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Coin> Coins { get; set; }
 
-        public DbSet<CryptoCurrency> CryptoCurrencies { get; set; }
-
-        public DbSet<CryptoTransaction> CryptoTransactions { get; set; }
     }
 }
