@@ -18,7 +18,7 @@ namespace api.Repository
         public async Task<CreateCoinDto> CreateCoinAsync(CreateCoinDto coinDto)
         {
             await context.Coins.AddAsync(new Coin { Name = coinDto.Name, Symbol = coinDto.Symbol });
-            await context.SaveChangesAsync();
+            await SaveAsync();
             return coinDto;
         }
 
@@ -31,7 +31,7 @@ namespace api.Repository
                 return null;
             }
             context.Coins.Remove(coin);
-            await context.SaveChangesAsync();
+            await SaveAsync();
             return coin;
         }
 
@@ -76,7 +76,7 @@ namespace api.Repository
             coin.MarketCap = updateCoin.MarketCap;
             coin.Volume24 = updateCoin.Volume24;
 
-            await context.SaveChangesAsync();
+            await SaveAsync();
 
             return updateCoin;
         }
