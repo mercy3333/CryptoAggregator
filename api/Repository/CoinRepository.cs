@@ -56,7 +56,7 @@ namespace api.Repository
 
         public async Task<Coin?> GetCoinByNameAsync(string name)
         {
-            var coin = await context.Coins.FirstOrDefaultAsync(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            var coin = await context.Coins.FirstOrDefaultAsync(c => c.Name.ToLower().Equals(name.ToLower()));
             return coin;
         }
 
@@ -86,5 +86,9 @@ namespace api.Repository
             await context.SaveChangesAsync();
         }
 
+        public Task<bool> CoinExists(int id)
+        {
+            return context.Coins.AnyAsync(s => s.Id == id);
+        }
     }
 }

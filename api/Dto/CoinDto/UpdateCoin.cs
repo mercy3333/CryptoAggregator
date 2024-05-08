@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace api.Models
+namespace api.Dto.CoinDto
 {
     public class UpdateCoin
     {

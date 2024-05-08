@@ -1,6 +1,5 @@
 ﻿using api.Data;
 using api.Dto.CoinDto;
-using api.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,18 +19,18 @@ namespace api.Controllers
             this.coinRepository = coinRepository;
             
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateCoin([FromBody] CreateCoinDto coinDto)
-        {
-            await coinRepository.CreateCoinAsync(coinDto);
-            return Ok(coinDto);
-        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCoins()
         {
             var allCoinsDto = await coinRepository.GetAllCoinsAsync();
             return Ok(allCoinsDto);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateCoin([FromBody] CreateCoinDto coinDto)
+        {
+            await coinRepository.CreateCoinAsync(coinDto);
+            return Ok(coinDto);
         }
 
         [HttpGet("id/{id}")]
@@ -143,6 +142,7 @@ namespace api.Controllers
                                             coin.Volume24,
                                             coin.Name,
                                             coin.Symbol));
+
         }
 
 

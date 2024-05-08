@@ -1,8 +1,5 @@
 ﻿using api.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace api.Data
 {
@@ -10,9 +7,21 @@ namespace api.Data
     {
         public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
-
+            this.ChangeTracker.LazyLoadingEnabled = false;
+            
         }
 
         public DbSet<Coin> Coins { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transaction>(entity =>
+            {
+                entity.HasOne(d => d.Coin)
+                .WithMany()
+                .HasForeignKey(d => d.CoinId);
+            });
+        }
     }
 }
