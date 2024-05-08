@@ -14,6 +14,5 @@ namespace api.Data
         }
 
         public DbSet<Coin> Coins { get; set; }
-
     }
 }
