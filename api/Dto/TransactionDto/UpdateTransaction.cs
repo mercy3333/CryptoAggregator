@@ -10,5 +10,6 @@ namespace api.Dto.TransactionDto
         public decimal Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
+
     }
 }

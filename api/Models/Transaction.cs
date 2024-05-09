@@ -12,6 +12,8 @@ namespace api.Models
     {
         public int Id { get; set; }
         [Required]
+        public int PortfolioId { get; set; }
+        [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(TransactionType))]
         public TransactionType TransactionType { get; set; }
@@ -19,10 +21,9 @@ namespace api.Models
         public decimal Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-         
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.Date;
+        [Required]
         public int CoinId { get; set; }
-        //[ForeignKey("CoinId")]
-        public Coin Coin { get; set; }/* = null!;*/
+        public Coin Coin { get; set; } = null!;
     }
 }

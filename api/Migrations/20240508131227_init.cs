@@ -29,6 +29,19 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Portfolios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NetWorth = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Portfolios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -38,7 +51,8 @@ namespace api.Migrations
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CoinId = table.Column<int>(type: "int", nullable: false)
+                    CoinId = table.Column<int>(type: "int", nullable: false),
+                    PortfolioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,12 +63,23 @@ namespace api.Migrations
                         principalTable: "Coins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Portfolios_PortfolioId",
+                        column: x => x.PortfolioId,
+                        principalTable: "Portfolios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_CoinId",
                 table: "Transactions",
                 column: "CoinId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_PortfolioId",
+                table: "Transactions",
+                column: "PortfolioId");
         }
 
         /// <inheritdoc />
@@ -65,6 +90,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Coins");
+
+            migrationBuilder.DropTable(
+                name: "Portfolios");
         }
     }
 }

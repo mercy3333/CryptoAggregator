@@ -27,6 +27,7 @@ namespace api.Repository
                 Quantity = transactionDto.Quantity,
                 TransactionType = transactionDto.TransactionType,
                 CoinId = transactionDto.CoinId,
+                PortfolioId = transactionDto.PortfolioId,
             };
 
             await context.Transactions.AddAsync(newTransaction);

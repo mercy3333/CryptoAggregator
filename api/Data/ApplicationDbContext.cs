@@ -13,6 +13,8 @@ namespace api.Data
 
         public DbSet<Coin> Coins { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,12 @@ namespace api.Data
                 .WithMany()
                 .HasForeignKey(d => d.CoinId);
             });
+
+            modelBuilder.Entity<Portfolio>()
+                .HasMany(x => x.Transactions)
+                .WithOne()
+                .HasForeignKey(c => c.PortfolioId)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }
